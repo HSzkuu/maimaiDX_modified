@@ -131,6 +131,7 @@ class DrawBest(Draw):
         self.sdBest = [i for i in self.records if mai.total_list.by_id(str(i.song_id)).basic_info.is_new == False]
         self.dxBest = [i for i in self.records if mai.total_list.by_id(str(i.song_id)).basic_info.is_new == True]
 
+        # 随机选择sdBest35首，dxBest15首
         self.sdBest = random.sample(self.sdBest, 35)
         self.dxBest = random.sample(self.dxBest, 15)
 
@@ -366,11 +367,9 @@ async def generate_random_50(qqid: Optional[int] = None, username: Optional[str]
         if username:
             qqid = None
         obj = await maiApi.query_user_dev(qqid=qqid, username=username)
-
-        # 检查 obj 是否包含 charts 字段
         if 'charts' not in obj:
-            obj['charts'] = None  # 或者可以根据需要提供一个默认值
-        print(obj)
+            obj['charts'] = None
+            
         mai_info = UserInfo(**obj)
         draw_best = DrawBest(mai_info, qqid)
         

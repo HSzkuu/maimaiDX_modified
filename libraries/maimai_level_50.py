@@ -126,20 +126,20 @@ class DrawBest(Draw):
         self.addRating = UserInfo.additional_rating
         self.qqId = qqId
         self.records = UserInfo.records
-        self.args = args if args is not None else []  # 确保 args 有默认值
+        self.args = args if args is not None else [] 
 
         self.sdBest = [i for i in self.records if mai.total_list.by_id(str(i.song_id)).basic_info.is_new == False]
         self.dxBest = [i for i in self.records if mai.total_list.by_id(str(i.song_id)).basic_info.is_new == True]
 
-    # 选出ap和app
+        # 选出对应level乐曲
         self.sdBest = [i for i in self.sdBest if i.level == self.args]
         self.dxBest = [i for i in self.dxBest if i.level == self.args]
 
-    # 按ra从高到低排序，取前35首
+        # 按ra从高到低排序，取前35首
         self.sdBest = sorted(self.sdBest, key=lambda x: x.ra, reverse=True)[:35]
         self.dxBest = sorted(self.dxBest, key=lambda x: x.ra, reverse=True)[:15]
 
-    # 把sdBest和dxBest的所有歌曲ra加起来
+        # 把sdBest和dxBest的所有歌曲ra加起来
         self.Rating = sum([_.ra for _ in self.sdBest]) + sum([_.ra for _ in self.dxBest])
 
 
@@ -366,11 +366,8 @@ def generateAchievementList(ds: float):
 async def generate_level_50(qqid: Optional[int] = None, args: Optional[int] = None) -> str:
     try:
         obj = await maiApi.query_user_dev(qqid=qqid)
-
-        # 检查 obj 是否包含 charts 字段
         if 'charts' not in obj:
-            obj['charts'] = None  # 或者可以根据需要提供一个默认值
-        print(obj)
+            obj['charts'] = None
         mai_info = UserInfo(**obj)
         draw_best = DrawBest(mai_info, qqid, args)
         

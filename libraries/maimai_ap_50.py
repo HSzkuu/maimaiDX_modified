@@ -367,11 +367,8 @@ async def generate_ap_50(qqid: Optional[int] = None, username: Optional[str] = N
         if username:
             qqid = None
         obj = await maiApi.query_user_dev(qqid=qqid, username=username)
-
-        # 检查 obj 是否包含 charts 字段
         if 'charts' not in obj:
-            obj['charts'] = None  # 或者可以根据需要提供一个默认值
-        print(obj)
+            obj['charts'] = None
         mai_info = UserInfo(**obj)
         draw_best = DrawBest(mai_info, qqid)
         

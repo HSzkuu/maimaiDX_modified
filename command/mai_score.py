@@ -51,6 +51,7 @@ async def _(bot: NoneBot, ev: CQEvent):
     await bot.send(ev, await generate_random_50(qqid, username), at_sender=True)
 
 @level50
+# 不支持用username查询，因为没写
 async def _(bot: NoneBot, ev: CQEvent):
     qqid = ev.user_id
     args: str = ev.message.extract_plain_text().strip()
