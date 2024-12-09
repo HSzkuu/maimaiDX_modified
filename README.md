@@ -10,7 +10,11 @@ r50 = Random Best50
 xl50(x=level) = Level Best50  
 ap50 = AP Best50
 
-以上功能需要查分器开发者token以进行使用
+以上功能参考了 https://github.com/Dale2003/maimaiDX_yang  
+需要查分器开发者token以进行使用
+
+随机 `static/mai/pic/nameplates` 中的图片作为nameplate  
+随机 `static/mai/pic/icons` 中的图片作为icon
 
 # maimaiDX
 
