@@ -8,6 +8,9 @@ from hoshino.typing import CQEvent, MessageSegment
 from .. import sv
 from ..libraries.image import image_to_base64, text_to_image
 from ..libraries.maimai_best_50 import generate
+from ..libraries.maimai_ap_50 import generate_ap_50
+from ..libraries.maimai_random_50 import generate_random_50
+from ..libraries.maimai_level_50 import generate_level_50
 from ..libraries.maimaidx_music import mai
 from ..libraries.maimaidx_music_info import music_play_data
 from ..libraries.maimaidx_player_score import music_global_data
@@ -16,7 +19,9 @@ best50  = sv.on_prefix(['b50', 'B50'])
 minfo   = sv.on_prefix(['minfo', 'Minfo', 'MINFO', 'info', 'Info', 'INFO'])
 ginfo   = sv.on_prefix(['ginfo', 'Ginfo', 'GINFO'])
 score   = sv.on_prefix(['分数线'])
-
+ap50  = sv.on_prefix(['ap50', 'AP50'])
+random50  = sv.on_prefix(['r50', 'R50'])
+level50 = sv.on_suffix('l50')
 
 @best50
 async def _(bot: NoneBot, ev: CQEvent):
@@ -27,7 +32,33 @@ async def _(bot: NoneBot, ev: CQEvent):
             qqid = int(i.data['qq'])
     await bot.send(ev, await generate(qqid, username), at_sender=True)
     
-    
+@ap50
+async def _(bot: NoneBot, ev: CQEvent):
+    qqid = ev.user_id
+    username: str = ev.message.extract_plain_text().strip()
+    for i in ev.message:
+        if i.type == 'at' and i.data['qq'] != 'all':
+            qqid = int(i.data['qq'])
+    await bot.send(ev, await generate_ap_50(qqid, username), at_sender=True)
+
+@random50
+async def _(bot: NoneBot, ev: CQEvent):
+    qqid = ev.user_id
+    username: str = ev.message.extract_plain_text().strip()
+    for i in ev.message:
+        if i.type == 'at' and i.data['qq'] != 'all':
+            qqid = int(i.data['qq'])
+    await bot.send(ev, await generate_random_50(qqid, username), at_sender=True)
+
+@level50
+async def _(bot: NoneBot, ev: CQEvent):
+    qqid = ev.user_id
+    args: str = ev.message.extract_plain_text().strip()
+    for i in ev.message:
+        if i.type == 'at' and i.data['qq'] != 'all':
+            qqid = int(i.data['qq'])
+    await bot.send(ev, await generate_level_50(qqid, args), at_sender=True)
+
 @minfo
 async def _(bot: NoneBot, ev: CQEvent):
     qqid = ev.user_id

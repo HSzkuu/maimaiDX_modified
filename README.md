@@ -1,4 +1,19 @@
+# maimaiDX_modified
+
+fork 自 https://github.com/Yuri-YuzuChaN/maimaiDX  
+
+[static.zip](https://plugin-static.shizk.moe/static.zip)
+
+## 新增功能：
+
+r50 = Random Best50  
+xl50(x=level) = Level Best50  
+ap50 = AP Best50
+
+以上功能需要查分器开发者token以进行使用
+
 # maimaiDX
+
 
 移植自 xybot 及 [mai-bot](https://github.com/Diving-Fish/mai-bot) 开源项目，基于 [HoshinoBotV2](https://github.com/Ice-Cirno/HoshinoBot) 的街机音游 **舞萌DX** 的查询插件
 
